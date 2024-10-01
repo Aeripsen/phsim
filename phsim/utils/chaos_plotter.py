@@ -1,8 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from simulations.double_pendulum import DoublePendulum
+from phsim.simulations.double_pendulum import DoublePendulum
 
-def plot_chaos_sensitivity(initial_conditions, small_change, t, l1, l2, m1, m2, g):
+
+def plot_chaos_sensitivity(initial_conditions, small_change, t, l1, l2, m1, m2,
+                           g):
     pendulum = DoublePendulum(l1, l2, m1, m2, g)
 
     # Simulate for original initial condition
@@ -15,11 +17,13 @@ def plot_chaos_sensitivity(initial_conditions, small_change, t, l1, l2, m1, m2, 
 
     # Plot difference between the two trajectories
     plt.figure()
-    plt.plot(t, solution_1[:, 0] - solution_2[:, 0], label='Difference in Theta1')
-    plt.plot(t, solution_1[:, 2] - solution_2[:, 2], label='Difference in Theta2')
+    plt.plot(t, solution_1[:, 0] - solution_2[:, 0],
+             label=f'Difference in Theta1 (Δ = {small_change})')
+    plt.plot(t, solution_1[:, 2] - solution_2[:, 2],
+             label=f'Difference in Theta2 (Δ = {small_change})')
     plt.xlabel('Time (s)')
     plt.ylabel('Difference in Angle (radians)')
-    plt.title('Sensitivity to Initial Conditions (Chaos)')
+    plt.title(f'Chaos Sensitivity (Δ = {small_change})')
     plt.legend()
-    plt.savefig('results/chaos_sensitivity.png')
+    plt.savefig(f'results/chaos_sensitivity_{small_change}.png')
     plt.show()
